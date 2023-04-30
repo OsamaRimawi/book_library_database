@@ -1,2 +1,4 @@
 # book_library_database
- simple Database project in sql with javafx UI
+Database for a Book Library Using MySQL and java with javafx UI
+
+In this repository You can Find the SQL and JAVA code.

@@ -2,53 +2,49 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.Controller">
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="800.0" style="-fx-background-image:url('file:/C:/Users/user/eclipse-workspace/Library/src/library.jpeg');" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.Controller">
    <children>
-      <VBox alignment="CENTER" layoutX="1.0" prefHeight="400.0" prefWidth="600.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="200.0" text="Login" textAlignment="CENTER" textFill="#814c10">
+         <font>
+            <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="598.0" text="Login" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+            <Label prefHeight="30.0" prefWidth="82.0" text="User ID" HBox.hgrow="ALWAYS">
                <font>
-                  <Font name="Arial Bold" size="26.0" />
+                  <Font size="22.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label prefHeight="30.0" prefWidth="82.0" text="User ID" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="UserIDText" prefHeight="40.0" prefWidth="180.0" promptText="00000000" />
-                  <Label fx:id="errorIDText" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label text="Password" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="UserPasswordText" prefHeight="40.0" prefWidth="180.0" />
-                  <Label fx:id="errorPasswordText" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#enter" prefHeight="39.0" prefWidth="92.0" text="Log in" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            <TextField fx:id="UserIDText" prefHeight="40.0" prefWidth="180.0" promptText="00000000" text="00000000" />
+            <Label fx:id="errorIDText" textFill="RED" HBox.hgrow="ALWAYS" />
          </children>
-      </VBox>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Label text="Password" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="UserPasswordText" prefHeight="40.0" prefWidth="180.0" text="1234" />
+            <Label fx:id="errorPasswordText" textFill="RED" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#enter" prefHeight="39.0" prefWidth="92.0" text="Log in" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</Pane>
+</VBox>

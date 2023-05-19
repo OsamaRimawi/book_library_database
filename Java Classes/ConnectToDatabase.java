@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectToDatabase {
-	
+
 	private Connection con;
 	private String dbURL;
 	private String dbUsername;
@@ -14,30 +14,30 @@ public class ConnectToDatabase {
 	private String URL;
 	private String port;
 	private String dbName;
-	
+
 	public ConnectToDatabase(String URL, String port, String dbName, String dbUsername, String dbPassword) {
-		
-		
+
 		this.URL = URL;
 		this.port = port;
 		this.dbName = dbName;
 		this.dbUsername = dbUsername;
 		this.dbPassword = dbPassword;
 	}
-	
+
 	public Connection connect() throws ClassNotFoundException, SQLException {
 
-		dbURL = "jdbc:mysql://" + URL + ":" + port + "/" + dbName + "?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=ConvertToNull&serverTimezone=GMT";
+		dbURL = "jdbc:mysql://" + URL + ":" + port + "/" + dbName
+				+ "?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=ConvertToNull&serverTimezone=GMT";
 
 		Properties p = new Properties();
 		p.setProperty("user", dbUsername);
 		p.setProperty("password", dbPassword);
 		p.setProperty("useSSL", "false");
 		p.setProperty("autoReconnect", "true");
-		
+
 		Class.forName("com.mysql.jdbc.Driver");
-		con = DriverManager.getConnection (dbURL, p);
-		
+		con = DriverManager.getConnection(dbURL, p);
+
 		return con;
 	}
 

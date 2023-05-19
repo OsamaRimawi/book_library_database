@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="802.0" style="-fx-background-color: #FFF7D0;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.PersonalControl">
+   <children>
+      <BorderPane prefHeight="39.0" prefWidth="802.0" style="-fx-background-color: peru;" VBox.vgrow="ALWAYS">
+         <left>
+            <HBox prefHeight="32.0" prefWidth="150.0" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <Label prefHeight="32.0" prefWidth="47.0" text="User ID:" />
+                  <Label fx:id="userID" prefHeight="32.0" prefWidth="70.0" text="name">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding></Label>
+               </children>
+            </HBox>
+         </left>
+         <right>
+            <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="155.0" text="Options" BorderPane.alignment="TOP_LEFT">
+               <items>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button fx:id="dd11" mnemonicParsing="false" onAction="#myBooksScene" prefWidth="130.0" text="My Books" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button fx:id="dd1" mnemonicParsing="false" onAction="#allBooksScene" prefWidth="130.0" text="All Books" />
+                     </graphic></MenuItem>
+                  <MenuItem fx:id="logoutmune" mnemonicParsing="false">
+                     <graphic>
+                        <Button fx:id="logout1" mnemonicParsing="false" onAction="#loginScene" prefWidth="130.0" text="Log out" />
+                     </graphic></MenuItem>
+               </items>
+            </MenuButton>
+         </right>
+      </BorderPane>
+      <HBox alignment="CENTER" prefHeight="113.0" prefWidth="802.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="114.0" prefWidth="639.0" text="Personal Information" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="103.0" prefWidth="574.0" spacing="30.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label prefHeight="103.0" prefWidth="101.0" text="First Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="firstName" prefHeight="102.0" prefWidth="57.0" />
+            <TextField fx:id="firstNameText" prefHeight="40.0" prefWidth="170.0" />
+            <Button fx:id="firstNamebutt" mnemonicParsing="false" onAction="#updateFirstName" text="Update" />
+            <Label fx:id="firstNameError" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="103.0" prefWidth="574.0" spacing="30.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label prefHeight="103.0" prefWidth="100.0" text="Last Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lastName" prefHeight="102.0" prefWidth="57.0" />
+            <TextField fx:id="lastNameText" prefHeight="40.0" prefWidth="170.0" />
+            <Button fx:id="lastNamebutt" mnemonicParsing="false" onAction="#updateLasttName" text="Update" />
+            <Label fx:id="lastNameError" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="103.0" prefWidth="574.0" spacing="30.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label prefHeight="103.0" prefWidth="100.0" text="Gender">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="gender" prefHeight="102.0" prefWidth="57.0" />
+            <RadioButton fx:id="maleCombo" mnemonicParsing="false" text="Male">
+               <toggleGroup>
+                  <ToggleGroup fx:id="radio" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="femaleCombo" mnemonicParsing="false" text="Female" toggleGroup="$radio" />
+            <Button fx:id="genderbutt" mnemonicParsing="false" onAction="#updateGender" text="Update" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="103.0" prefWidth="574.0" spacing="30.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label prefHeight="103.0" prefWidth="100.0" text="Birth Date">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="birthdate" prefHeight="102.0" prefWidth="80.0" />
+            <DatePicker fx:id="datePicker" />
+            <Button fx:id="birthbutt" mnemonicParsing="false" onAction="#updateBirthday" text="Update" />
+            <Label fx:id="birthdateError" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="103.0" prefWidth="574.0" spacing="20.0">
+         <children>
+            <Label prefHeight="97.0" prefWidth="150.0" text="Phone Numbers">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="phones" prefHeight="97.0" prefWidth="99.0" />
+            <Label fx:id="birthdateError1" />
+            <VBox alignment="CENTER" prefHeight="62.0" prefWidth="174.0">
+               <children>
+                  <TextField fx:id="phonesText" prefHeight="40.0" prefWidth="170.0" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="phonesError" prefHeight="18.0" prefWidth="154.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#addNewPhone" prefHeight="30.0" prefWidth="55.0" text="Add" />
+            <Button mnemonicParsing="false" onAction="#deletePhone" prefHeight="30.0" prefWidth="55.0" text="Delete" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

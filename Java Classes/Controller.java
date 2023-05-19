@@ -1,6 +1,5 @@
 package login;
 
-
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -10,46 +9,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import javafx.util.converter.CharacterStringConverter;
-import javafx.util.converter.DoubleStringConverter;
-import login.ConnectToDatabase;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Scanner;
-import com.mysql.cj.xdevapi.Result;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 
 public class Controller {
 
-
- private Stage stage;
- private Scene scene;
- private Parent root;
-
 	// ObservableList date
-	ObservableList<login> data;
+	ObservableList<login> loginData;
 
 	// ----------------------------------------------------------------------------//
 	// fields for connection to database
@@ -64,30 +38,15 @@ public class Controller {
 	private static String dbName = "Library"; // database on mysql to connect to
 	// ----------------------------------------------------------------------------//
 
-	private String UserID ="";
-	private String UserPassword ="";
+	protected String UserID = "";
+	protected String UserPassword = "";
 
 	// constructor
 	public Controller() {
-		this.initial(stage);
-		}
-
-	// initial for this scene
-	private void initial(Stage stage) {
-		this.stage = stage;
-		this.data = FXCollections.observableArrayList();
+		this.loginData = FXCollections.observableArrayList();
 		this.insertOnTableFromDatabase();
 	}
 
-	// set scene in the stage
-	public void setScene() {
-		this.stage.setScene(this.scene);
-	}
-	
-	public void setScene(Scene s) {
-		this.stage.setScene(s);
-	}
- 
 	private void insertOnTableFromDatabase() {
 
 		try {
@@ -99,90 +58,97 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
- 
+
 	private void getData() throws ClassNotFoundException, SQLException {
 
-		// create a connection with the database
 		ConnectToDatabase connectToDatabase = new ConnectToDatabase(URL, port, dbName, dbUsername, dbPassword);
 
-		// select information from users and phone tables who has 2 phone numbers
-		String query1 = "SELECT *\r\n"
-				+ "FROM login L;";
+		String query1 = "SELECT *\r\n" + "FROM login L;";
 		this.connection = connectToDatabase.connect();
 		this.statement = connection.createStatement();
 		this.resultSet = statement.executeQuery(query1);
 
-		// add all users in the data ObservableList
-		while (resultSet.next()) { 	
+		while (resultSet.next()) {
 
-			// create user reference
 			login log = new login(resultSet.getString(1), resultSet.getString(2));
 
-			// add user reference to data ObseravleList
-			data.add(log);
+			loginData.add(log);
 
-		} // end while
+		}
 
 		statement.close();
 		resultSet.close();
 		connection.close();
 
 	}
-	// clear all errors
+
+	@FXML
+	protected TextField UserIDText, UserPasswordText;
+
+	@FXML
+	protected Label errorIDText, errorPasswordText;
+
 	private void clearError() {
 		errorIDText.setText("");
 		errorPasswordText.setText("");
 	}
-	
- @FXML
-	protected TextField UserPasswordText,UserIDText;
- 
- @FXML
-	protected Label errorPasswordText,errorIDText; 
- @FXML
- 	void enter (ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
 
-			this.clearError();
-			boolean isIDValid = true;
-			String s = UserIDText.getText();
-			if (s.length() < 8)
-				isIDValid = false;
-			for (int i = 0; i < s.length() && isIDValid; i++) {
-				isIDValid = (Character.isDigit(s.charAt(i)));
-			}
+	@FXML
+	void enter(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
 
-			boolean found = false;
-			if (isIDValid) {
+		this.clearError();
+		String id = UserIDText.getText();
 
-				for (int i = 0; i < data.size(); i++) {
-					if (data.get(i).getUser_id().equals(UserIDText.getText()))
-						if (data.get(i).getUser_password().equals(UserPasswordText.getText())) {
-							found = true;
-							break;
-						}
+		boolean idfound = false;
+		boolean passwordfound = false;
+
+		if (isIDValid(id)) {
+
+			for (int i = 0; i < loginData.size(); i++) {
+				if (loginData.get(i).getUser_id().equals(UserIDText.getText())) {
+					idfound = true;
+					if (loginData.get(i).getUser_password().equals(UserPasswordText.getText())) {
+						passwordfound = true;
+						break;
+					}
 				}
-				if (found == true) {
-					errorIDText.setText("found");
+			}
+			if (idfound == true) {
+				if (passwordfound == true) {
 					UserID = UserIDText.getText();
 					UserPassword = UserPasswordText.getText();
-					  root = FXMLLoader.load(getClass().getResource("UserLayout.fxml"));
-					  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-					  scene = new Scene(root);
-					  stage.setScene(scene);
-					  stage.show();
-				} else {
-					errorIDText.setText("ID is not found");
-				}
-			} else
-					errorIDText.setText("invalid ID input");
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("MyBooksLayout.fxml"));
+					Parent root = loader.load();
+					Scene scene = new Scene(root);
+					MyBooksControl controller = loader.getController();
+					controller.initData(UserID);
+					Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					window.setScene(scene);
+					window.show();
+
+				} else
+					errorPasswordText.setText("Password is Incorrect");
+
+			} else {
+				errorIDText.setText("There is no account with this ID");
+			}
+		} else
+			errorIDText.setText("Invalid User ID input");
+	}
+	
+	private boolean isIDValid(String id) {
+		boolean IDValid = true;
+
+		if (id.length() != 8)
+			return false;
+		for (int i = 0; i < id.length() && IDValid; i++) {
+			IDValid = (Character.isDigit(id.charAt(i)));
 		}
-		
- public void switchToScene1(ActionEvent event) throws IOException {
-  root = FXMLLoader.load(getClass().getResource("LoginLayout.fxml"));
-  stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-  scene = new Scene(root);
-  stage.setScene(scene);
-  stage.show();
- }
- 
- }
+		//Only Members
+		if(id.charAt(0) != '0' || id.charAt(1) != '0' || id.charAt(2) != '0')
+			return false;
+
+		return IDValid;
+	}
+	}
